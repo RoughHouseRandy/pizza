@@ -24,21 +24,62 @@
         <form id="pizza-form" action="#" method="get">
             <!-- contact info-->
              <fieldset>
-                <legend>CONTACT INFO</legend>
-                <label for="fname">First name:</label>
-                <input type="text" id="fname" name="fname">
-                <label for="lname">Last name:</label>
-                <input type="text" id="lname" name="lname">
-                <label for="email">Email:</label>
-                <input type="email" name="email" id="email">
+                <legend>Contact info</legend>
+                <label for="fname">First name:
+                    <input type="text" id="fname" name="fname">
+                </label>
+                <label for="lname">Last name:
+                    <input type="text" id="lname" name="lname">
+                </label>
+                <label for="email">Email:
+                    <input type="email" name="email" id="email">
+                </label>
              </fieldset>
+             <!-- pickup or delivery -->
              <fieldset>
-                <legend>SELECT PICK UP OR DELIVERY</legend>
-                <input type="radio" name="method" id="pickup" value="pickup">
-                <label type="radio">Pickup</label>
-                <input type="radio" name="method" id="delivery" value="delivery">
-                <label type="radio">Delivery</label>
+                <legend>Select pickup or delivery</legend>
+                <label type="radio">
+                    <input type="radio" name="method" id="pickup" value="pickup">Pickup
+                </label>
+                <label type="radio">
+                    <input type="radio" name="method" id="delivery" value="delivery">Delivery
+                </label>
              </fieldset>
+             <!-- toppings -->
+             <fieldset>
+                <legend> Select toppings</legend>
+                <label for="pepperoni">
+                    <input type="checkbox" name="toppings[]" id="pepperoni" value="pepperoni">pepperoni
+                </label>
+                <label for="cheese">
+                    <input type="checkbox" name="toppings[]" id="cheese" value="cheese">Cheese
+                </label>
+                <label for="chicken">
+                    <input type="checkbox" name="toppings[]" id="chicken"value="chicken">Chicken
+                </label>
+                <label for="mushrooms">
+                    <input type="checkbox" name="toppings[]" id="mushrooms"value="mushrooms">Mushrooms
+                </label>
+                <label for="onions">
+                    <input type="checkbox" name="toppings[]" id="onions"value="onions">Onions
+                </label> 
+                <label for="tomatoes">
+                    <input type="checkbox" name="toppings[]" id="tomatoes"value="tomatoes">Tomatoes
+                </label>
+             </fieldset>
+             <!-- pizza size -->
+             <fieldset>
+                <legend>Pizza size</legend>
+                <select id="size" name="size">
+                    <option value="none">--Select a Size</option>
+                    <option value="small">Small</option>
+                    <option value="medium">Medium</option>
+                    <option value="large">Large</option>
+                </select>
+             </fieldset>
+             <!-- Comment field -->
+              <label for="comment">Comments</label>
+             <textarea rows="5" id="comment" name="comment"></textarea>
              <!-- Order button -->
              <button type="submit" id="order-button">Place Order</button>
         </form>
