@@ -19,6 +19,7 @@ document.getElementById("pizza-form").onsubmit = () => {
     }
     if(email === ""){
         document.getElementById("err-email").style.display = "block";
+        isValid = false;
     }
 
     let methodSelected = false;
