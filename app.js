@@ -41,6 +41,11 @@ app.get(`/confirm-order`, (req,res) => {
     res.sendFile(`${import.meta.dirname}/views/confirm.html`);
 });
 
+// Add an admin route
+app.get('/admin',(req,res) => {
+    res.send(orders);
+})
+
 //new route to process pizza order
 app.post(`/submit-order`, (req, res) => {
 
