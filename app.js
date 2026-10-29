@@ -21,29 +21,32 @@ app.use(express.static('public'));
 // access form data through req.body
 app.use(express.urlencoded({extended: true}));
 
+//Set view engine to EJS
+app.set('view engine', 'ejs');
+
 //Define a default route ("/")
 app.get('/', (req,res) => {
-    res.sendFile(`${import.meta.dirname}/views/home.html`);
+    res.render('home');
 });
 
 // Add a contact route to display a contact view page
 app.get('/contact-us', (req,res) => {
-    res.sendFile(`${import.meta.dirname}/views/contact.html`);
+    res.render('contact');
 });
 
 //Add a menu 
 app.get(`/menu`, (req, res) => {
-    res.sendFile(`${import.meta.dirname}/views/menu.html`);
+    res.render('menu');
 });
 
-// Add a confirm order route.
-app.get(`/confirm-order`, (req,res) => {
-    res.sendFile(`${import.meta.dirname}/views/confirm.html`);
-});
+// // Add a confirm order route.
+// app.get(`/confirm-order`, (req,res) => {
+//     res.render('confirm');
+// });
 
 // Add an admin route
 app.get('/admin',(req,res) => {
-    res.send(orders);
+    res.render('admin', {orders});
 })
 
 //new route to process pizza order
@@ -58,7 +61,7 @@ app.post(`/submit-order`, (req, res) => {
     console.log(orders);
 
     //Display the confirmation page. 
-    res.sendFile(`${import.meta.dirname}/views/confirm.html`);
+    res.render('confirm', {order});
 });
 
 //Start the server on the designated port
