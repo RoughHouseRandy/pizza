@@ -45,17 +45,17 @@ app.get('/', (req,res) => {
     res.render('home');
 });
 
-//Create a route to test the database
-app.get('/db-test', async(req,res)=> {
-    try{
-        const orders = await 
-        pool.query('SELECT * FROM orders');
-        res.send(orders[0]);
-    } catch(err) {
-        console.error('Database error: ', err);
-        res.status(500).send('Database error occured.');
-    }
-});
+// //Create a route to test the database
+// app.get('/db-test', async(req,res)=> {
+//     try{
+//         const orders = await 
+//         pool.query('SELECT * FROM orders');
+//         res.send(orders[0]);
+//     } catch(err) {
+//         console.error('Database error: ', err);
+//         res.status(500).send('Database error occured.');
+//     }
+// });
 
 // Add a contact route to display a contact view page
 app.get('/contact-us', (req,res) => {
@@ -75,10 +75,10 @@ app.get(`/menu`, (req, res) => {
 // Add an admin route
 app.get('/admin',async(req,res) => {
     try {
-        const orders = await
-            pool.query('SELECT * FROM orders');
-            console.log(orders[0]);
-            res.render('admin', { orders: orders[0] });
+        const [orders] = await
+            pool.query('SELECT * FROM orders ORDER BY timestamp DESC');
+            console.log(orders);
+            res.render('admin', {orders});
     } catch(err) {
         console.error('Database error: ', err);
         res.status(500).send('Database error occured.');
@@ -91,7 +91,12 @@ app.post(`/submit-order`, async(req, res) => {
 
     //create JSON object to store order data
     const order = req.body;
+    order.timestamp = new Date();
     console.log(order);
+
+    //convert toppings array to a comma-delimited string
+    order.toppings = Array.isArray(order.toppings) ? 
+        order.toppings.join(", ") : "";
 
     //define an sql query to insert the new order
     const sql = 'INSERT INTO orders (fname, lname, email, size, method, toppings, comment) VALUES(?, ?, ?, ?, ?, ?, ?)';
@@ -108,6 +113,10 @@ app.post(`/submit-order`, async(req, res) => {
 
     // Execute the query
     const [result] = await pool.execute(sql, params);
+
+    //Get the id from the newly inserted row
+    order.id = result.insertId;
+    console.log("A new row was inserted with ID: " + order.id);
 
     //Display the confirmation page. 
     res.render('confirm', {order});
